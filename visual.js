@@ -46,8 +46,9 @@ let storage = []
 let selected = []
 let username = ""
 let timeout
-let counter_questions = 0
 let clock
+let question_counter = 1
+let points = 0
 
 function load_highscore_site() {
     body.innerHTML = "";
@@ -93,6 +94,8 @@ function load_main_menu_site() {
     body.appendChild(button_input_username)
     body.appendChild(button_highscore)
     body.appendChild(button_explanation)
+
+    question_counter = 1
 }
 
 function load_game_username_input_site() {
@@ -109,83 +112,104 @@ function load_game_username_input_site() {
     body.appendChild(button_back_to_main_menu)
 }
 
+function load_ending_screen() {
+    console.log("end")
+    input_field_username.value = ""
+
+    body.innerHTML = ""
+    body.appendChild(main_game_header)
+
+    main_game_header.innerHTML = "You have scored " + points + "/10 points"
+
+    points = 0
+    body.appendChild(button_back_to_main_menu)
+}
 
 function load_game_site() {
     if (input_field_username.value === "") {
         alert("Input username!")
     } else {
-        body.innerHTML = ""
-        body.appendChild(main_game_header)
-        let timer_show = document.createElement("p")
-        body.appendChild(timer_show)
+        console.log(question_counter)
+        if (question_counter > 10) {
+            load_ending_screen()
+        } else {
+            body.innerHTML = ""
+            body.appendChild(main_game_header)
+            let timer_show = document.createElement("p")
+            let question_counter_show = document.createElement("p")
+            question_counter_show.innerHTML = question_counter + "/10"
 
-        username = input_field_username.value
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function c() {
-            let item;
-            if (this.readyState === 4 && this.status === 200) {
-                storage = JSON.parse(this.responseText)
+            body.appendChild(timer_show)
+            body.appendChild(question_counter_show)
 
-                timeout = window.setTimeout(function () {
-                    button_send_answer.removeEventListener("click", handler_send_answer);
-                    choice_list.innerHTML = ""
-                    input_field_result.value = ""
-                    load_game_site()
-                }, storage[1] * 1000)
+            username = input_field_username.value
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function c() {
+                let item;
+                if (this.readyState === 4 && this.status === 200) {
+                    storage = JSON.parse(this.responseText)
 
-                let current_timer = storage[1]
-                timer_show.innerHTML = current_timer
+                    timeout = window.setTimeout(function () {
+                        button_send_answer.removeEventListener("click", handler_send_answer);
+                        choice_list.innerHTML = ""
+                        input_field_result.value = ""
+                        load_game_site()
+                    }, storage[1] * 1000)
 
-                clock = window.setInterval(function () {
-                    current_timer--
+                    let current_timer = storage[1]
                     timer_show.innerHTML = current_timer
-                }, 1000)
 
-                main_game_header.innerHTML = storage[2]
-                selected = []
-                if (storage[0] === "MULTI" || storage[0] === "SINGLE") {
-                    body.appendChild(choice_list)
-                    for (let possible in storage[3]) {
-                        item = document.createElement("li")
-                        item.innerHTML = storage[3][possible]
-                        choice_list.appendChild(item)
-                        item.addEventListener("click", function () {
-                            if (storage[0] === "SINGLE") {
-                                if (selected[0] === this.innerText) {
-                                    selected.splice(0, 1)
-                                    this.classList.remove("selected")
-                                } else {
-                                    if (selected[0] !== undefined) {
-                                        document.getElementById(selected[0]).classList.remove("selected")
-                                    }
-                                    selected = []
-                                    selected.push(this.innerText)
-                                    this.className = "selected"
-                                    this.id = this.innerText
-                                }
-                            } else {
-                                for (item in selected) {
-                                    if (selected[item] === this.innerText) {
-                                        selected.splice(item, 1);
+                    clock = window.setInterval(function () {
+                        current_timer--
+                        timer_show.innerHTML = current_timer
+                    }, 1000)
+
+                    main_game_header.innerHTML = storage[2]
+                    selected = []
+                    if (storage[0] === "MULTI" || storage[0] === "SINGLE") {
+                        body.appendChild(choice_list)
+                        for (let possible in storage[3]) {
+                            item = document.createElement("li")
+                            item.innerHTML = storage[3][possible]
+                            choice_list.appendChild(item)
+                            item.addEventListener("click", function () {
+                                if (storage[0] === "SINGLE") {
+                                    if (selected[0] === this.innerText) {
+                                        selected.splice(0, 1)
                                         this.classList.remove("selected")
-                                        return
+                                    } else {
+                                        if (selected[0] !== undefined) {
+                                            document.getElementById(selected[0]).classList.remove("selected")
+                                        }
+                                        selected = []
+                                        selected.push(this.innerText)
+                                        this.className = "selected"
+                                        this.id = this.innerText
                                     }
+                                } else {
+                                    for (item in selected) {
+                                        if (selected[item] === this.innerText) {
+                                            selected.splice(item, 1);
+                                            this.classList.remove("selected")
+                                            return
+                                        }
+                                    }
+                                    selected.push(this.innerText);
+                                    this.className = "selected"
                                 }
-                                selected.push(this.innerText);
-                                this.className = "selected"
-                            }
-                        }, this)
+                            }, this)
+                        }
+                    } else {
+                        body.appendChild(input_field_result)
                     }
-                } else {
-                    body.appendChild(input_field_result)
-                }
-                body.appendChild(button_send_answer)
+                    body.appendChild(button_send_answer)
 
-                button_send_answer.addEventListener("click", handler_send_answer)
+                    button_send_answer.addEventListener("click", handler_send_answer)
+                }
             }
+            xhttp.open("POST", "getQuestions.php", true)
+            xhttp.send()
         }
-        xhttp.open("POST", "getQuestions.php", true)
-        xhttp.send()
     }
 }
 
@@ -197,10 +221,18 @@ function handler_send_answer() {
     let xhttpResult = new XMLHttpRequest();
     xhttpResult.onreadystatechange = function c() {
         if (xhttpResult.readyState === 4 && xhttpResult.status === 200) {
-            alert(xhttpResult.responseText)
+            if (xhttpResult.responseText.includes("true")) {
+                alert("Correct!")
+            } else {
+                alert("False!")
+            }
+            if (xhttpResult.responseText.includes("true")) {
+                points++
+            }
             choice_list.innerHTML = "";
             button_send_answer.removeEventListener("click", handler_send_answer);
             input_field_result.value = ""
+            question_counter++
             load_game_site()
         }
     }
@@ -215,8 +247,5 @@ function handler_send_answer() {
 }
 
 // TODO: Don't get same question twice
-// TODO: Get only certain amount of questions
-// TODO: Screen after answering all questions
 // TODO: Make pretty
-// TODO: Visual question counter
 // TODO: Game explanation
