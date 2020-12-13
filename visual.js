@@ -46,6 +46,8 @@ let storage = []
 let selected = []
 let username = ""
 let timeout
+let counter_questions = 0
+let clock
 
 function load_highscore_site() {
     body.innerHTML = "";
@@ -113,8 +115,9 @@ function load_game_site() {
         alert("Input username!")
     } else {
         body.innerHTML = ""
-        start_time = new Date();
         body.appendChild(main_game_header)
+        let timer_show = document.createElement("p")
+        body.appendChild(timer_show)
 
         username = input_field_username.value
         let xhttp = new XMLHttpRequest();
@@ -123,17 +126,20 @@ function load_game_site() {
             if (this.readyState === 4 && this.status === 200) {
                 storage = JSON.parse(this.responseText)
 
-                // timeout
-                let start_time = new Date()
                 timeout = window.setTimeout(function () {
-                    console.log("time's up")
                     button_send_answer.removeEventListener("click", handler_send_answer);
                     choice_list.innerHTML = ""
                     input_field_result.value = ""
-                    let end_date = new Date()
-                    console.log((end_date.getTime() - start_time.getTime()) / 1000)
                     load_game_site()
                 }, storage[1] * 1000)
+
+                let current_timer = storage[1]
+                timer_show.innerHTML = current_timer
+
+                clock = window.setInterval(function () {
+                    current_timer--
+                    timer_show.innerHTML = current_timer
+                }, 1000)
 
                 main_game_header.innerHTML = storage[2]
                 selected = []
@@ -208,3 +214,9 @@ function handler_send_answer() {
     xhttpResult.send(JSON.stringify(object))
 }
 
+// TODO: Don't get same question twice
+// TODO: Get only certain amount of questions
+// TODO: Screen after answering all questions
+// TODO: Make pretty
+// TODO: Visual question counter
+// TODO: Game explanation
