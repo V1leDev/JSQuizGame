@@ -48,7 +48,7 @@ if (isset($data['username']) && isset($data['answer']) && isset($data['id'])) {
         foreach ($question['richtige'] as $key => $value) {
             $temp[$key] = $question['antwort'][$value];
         }
-        if (count(array_intersect($temp, $user_answer)) == count($user_answer)) {
+        if (count(array_intersect($temp, $user_answer)) == count($temp) && count($user_answer) != 0) {
             is_correct($username);
         } else {
             echo "false";

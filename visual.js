@@ -153,6 +153,7 @@ function load_game_site() {
                         button_send_answer.removeEventListener("click", handler_send_answer);
                         choice_list.innerHTML = ""
                         input_field_result.value = ""
+                        question_counter++
                         load_game_site()
                     }, storage[1] * 1000)
 
@@ -223,11 +224,10 @@ function handler_send_answer() {
         if (xhttpResult.readyState === 4 && xhttpResult.status === 200) {
             if (xhttpResult.responseText.includes("true")) {
                 alert("Correct!")
+                console.log("points++")
+                points++
             } else {
                 alert("False!")
-            }
-            if (xhttpResult.responseText.includes("true")) {
-                points++
             }
             choice_list.innerHTML = "";
             button_send_answer.removeEventListener("click", handler_send_answer);
