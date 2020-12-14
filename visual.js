@@ -13,6 +13,7 @@ button_highscore.addEventListener("click", load_highscore_site)
 
 button_explanation = document.createElement("button")
 button_explanation.innerHTML = "HOW IT WORKS"
+button_explanation.addEventListener("click", load_explanation_site)
 
 button_back_to_main_menu = document.createElement("button")
 button_back_to_main_menu.innerHTML = "BACK TO MAIN MENU"
@@ -86,6 +87,37 @@ function load_highscore_site() {
     }
     xhttp.open("POST", "highscore.json", true)
     xhttp.send()
+}
+
+
+function load_explanation_site() {
+    let explanations = []
+    explanations.push("You will get 10 random questions to answer")
+    explanations.push("Every question has to be answered in a certain amount of time")
+    explanations.push("After the timer has run out, a new question is loaded")
+    explanations.push("See how many questions you got right after the game is over")
+    explanations.push("Check out the leaderboard!")
+
+    body.innerHTML = "";
+
+    let explanation_header = document.createElement("h1")
+    explanation_header.innerHTML = "HOW IT WORKS"
+    explanation_header.className = "main_headers"
+    body.appendChild(explanation_header)
+
+    let explanation_list = document.createElement("ul")
+    explanation_list.className = "explanation_list"
+
+    for (let ex of explanations) {
+        let list_item = document.createElement("li")
+        list_item.className = "listitem"
+        list_item.innerHTML = ex
+        explanation_list.appendChild(list_item)
+    }
+
+    body.appendChild(explanation_list)
+
+    body.appendChild(button_back_to_main_menu);
 }
 
 function load_main_menu_site() {

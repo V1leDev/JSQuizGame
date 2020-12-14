@@ -77,3 +77,8 @@ p {
     font-size: 30px;
 }
 
+ul.explanation_list{
+    width: 600px;
+    margin-bottom: 50px;
+}
+
