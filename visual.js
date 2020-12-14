@@ -96,6 +96,8 @@ function load_main_menu_site() {
     body.appendChild(button_highscore)
     body.appendChild(button_explanation)
 
+    input_field_username.value = ""
+
     question_counter = 1
 }
 
