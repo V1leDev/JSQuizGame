@@ -49,6 +49,7 @@ let timeout
 let clock
 let question_counter = 1
 let points = 0
+let question_ids = []
 
 function load_highscore_site() {
     body.innerHTML = "";
@@ -149,6 +150,8 @@ function load_game_site() {
                 if (this.readyState === 4 && this.status === 200) {
                     storage = JSON.parse(this.responseText)
 
+                    question_ids.push(storage[4])
+
                     timeout = window.setTimeout(function () {
                         button_send_answer.removeEventListener("click", handler_send_answer);
                         choice_list.innerHTML = ""
@@ -209,7 +212,7 @@ function load_game_site() {
                 }
             }
             xhttp.open("POST", "getQuestions.php", true)
-            xhttp.send()
+            xhttp.send(JSON.stringify(question_ids))
         }
     }
 }
@@ -246,6 +249,5 @@ function handler_send_answer() {
     xhttpResult.send(JSON.stringify(object))
 }
 
-// TODO: Don't get same question twice
 // TODO: Make pretty
 // TODO: Game explanation
