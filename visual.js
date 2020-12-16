@@ -1,5 +1,10 @@
 body = document.getElementById("body")
 
+logo = document.createElement("img")
+logo.src = "images/logo.jpg"
+logo.className = "logo"
+
+body.appendChild(logo)
 
 button_input_username = document.createElement("button")
 button_input_username.innerHTML = "START GAME"
@@ -122,6 +127,7 @@ function load_explanation_site() {
 function load_main_menu_site() {
     body.innerHTML = "";
 
+    body.appendChild(logo)
     body.appendChild(button_input_username)
     body.appendChild(button_highscore)
     body.appendChild(button_explanation)

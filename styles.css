@@ -2,7 +2,9 @@
     padding: 0;
     margin: 0;
     background: url("images/Background.jpg") no-repeat;
+    background-size: 100vw 100vh;
     color: ghostwhite;
+    font-size: 23px;
 }
 
 body {
@@ -11,20 +13,20 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #3e3a3a;
-    height: 98vh;
+    height: 100vh;
 }
 
 h1.main_headers {
-    margin-bottom: 50px;
+    margin-bottom: 4vh;
     background: transparent;
+    font-size: 30px;
 }
 
 button {
     border: none;
     width: 545px;
     height: 76px;
-    margin-bottom: 30px;
-    font-size: 25px;
+    margin-bottom: 4vh;
     background: transparent url("images/button1.png") no-repeat;
 }
 
@@ -34,12 +36,11 @@ button.send_answer {
     border: none;
     width: 545px;
     height: 76px;
-    margin-bottom: 30px;
+    margin-bottom: 4vh;
     background: transparent url("images/button3.png") no-repeat;
 }
 
 li.listitem {
-    font-size: 30px;
     background: transparent;
 }
 
@@ -49,10 +50,9 @@ ol.choice_list > li {
     list-style: none;
     width: 545px;
     height: 76px;
-    margin-bottom: 30px;
+    margin-bottom: 4vh;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
     background: transparent url("images/button1.png") no-repeat;
 }
 
@@ -61,8 +61,7 @@ ol.choice_list > li.selected {
     list-style: none;
     width: 545px;
     height: 76px;
-    margin-bottom: 30px;
-    font-size: 30px;
+    margin-bottom: 4vh;
     background: transparent url("images/button2.png") no-repeat;
 }
 
@@ -70,8 +69,7 @@ input {
     list-style: none;
     width: 600px;
     height: 60px;
-    margin-bottom: 30px;
-    font-size: 30px;
+    margin-bottom: 4vh;
 }
 
 div.highscore_div {
@@ -80,16 +78,15 @@ div.highscore_div {
     height: 200px;
     width: 600px;
     overflow: auto;
-    margin-bottom: 50px;
+    margin-bottom: 4vh;
 }
 
 p {
-    margin-bottom: 50px;
-    font-size: 30px;
+    margin-bottom: 4vh;
     background: transparent;
 }
 
-input{
+input {
     background: transparent;
     border: white 1px solid;
 }
@@ -97,7 +94,7 @@ input{
 ul.explanation_list {
     background: transparent;
     width: 600px;
-    margin-bottom: 50px;
+    margin-bottom: 4vh;
 }
 
 ul.explanation_list > li {
@@ -106,4 +103,10 @@ ul.explanation_list > li {
 
 ol {
     background: transparent;
+}
+
+img.logo {
+    width: 30vh;
+    height: 30vh;
+    margin-bottom: 9vh;
 }
