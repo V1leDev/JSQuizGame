@@ -1,7 +1,7 @@
 body = document.getElementById("body")
 
 logo = document.createElement("img")
-logo.src = "images/logo.jpg"
+logo.src = "images/startlogo.png"
 logo.className = "logo"
 
 body.appendChild(logo)

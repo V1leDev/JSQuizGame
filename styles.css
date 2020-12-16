@@ -106,6 +106,7 @@ ol {
 }
 
 img.logo {
+    background: transparent;
     width: 30vh;
     height: 30vh;
     margin-bottom: 9vh;
