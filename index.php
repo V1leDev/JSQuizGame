@@ -7,7 +7,6 @@
     <link rel="icon" href="icon.png">
 </head>
 <body id="body">
-<h1 id="main_menu_header" class="main_headers">Welcome to JSQuizGame</h1>
 <script src="visual.js"></script>
 </body>
 </html>

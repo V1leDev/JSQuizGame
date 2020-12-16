@@ -1,6 +1,5 @@
 body = document.getElementById("body")
 
-main_menu_header = document.getElementById("main_menu_header")
 
 button_input_username = document.createElement("button")
 button_input_username.innerHTML = "START GAME"
@@ -123,7 +122,6 @@ function load_explanation_site() {
 function load_main_menu_site() {
     body.innerHTML = "";
 
-    body.appendChild(main_menu_header);
     body.appendChild(button_input_username)
     body.appendChild(button_highscore)
     body.appendChild(button_explanation)
@@ -260,11 +258,11 @@ function handler_send_answer() {
     xhttpResult.onreadystatechange = function c() {
         if (xhttpResult.readyState === 4 && xhttpResult.status === 200) {
             if (xhttpResult.responseText.includes("true")) {
-                alert("Correct!")
+               // alert("Correct!")
                 console.log("points++")
                 points++
             } else {
-                alert("False!")
+              //  alert("False!")
             }
             choice_list.innerHTML = "";
             button_send_answer.removeEventListener("click", handler_send_answer);

@@ -1,6 +1,8 @@
 * {
     padding: 0;
     margin: 0;
+    background: url("images/Background.jpg") no-repeat;
+    color: ghostwhite;
 }
 
 body {
@@ -14,46 +16,54 @@ body {
 
 h1.main_headers {
     margin-bottom: 50px;
+    background: transparent;
 }
 
 button {
-    width: 600px;
-    height: 60px;
+    border: none;
+    width: 545px;
+    height: 76px;
     margin-bottom: 30px;
-    font-size: 16px;
-    background-color: #7fffd4;
+    font-size: 25px;
+    background: transparent url("images/button1.png") no-repeat;
 }
 
 button.send_answer {
-    width: 600px;
-    height: 60px;
+    margin-top: 50px;
+    color: black;
+    border: none;
+    width: 545px;
+    height: 76px;
     margin-bottom: 30px;
-    font-size: 16px;
-    background-color: slateblue;
+    background: transparent url("images/button3.png") no-repeat;
 }
 
 li.listitem {
     font-size: 30px;
+    background: transparent;
 }
 
 
 ol.choice_list > li {
+    display: flex;
     list-style: none;
-    width: 600px;
-    height: 60px;
+    width: 545px;
+    height: 76px;
     margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
     font-size: 30px;
-    background-color: deepskyblue;
+    background: transparent url("images/button1.png") no-repeat;
 }
 
 
 ol.choice_list > li.selected {
     list-style: none;
-    width: 600px;
-    height: 60px;
+    width: 545px;
+    height: 76px;
     margin-bottom: 30px;
     font-size: 30px;
-    background-color: greenyellow;
+    background: transparent url("images/button2.png") no-repeat;
 }
 
 input {
@@ -65,6 +75,7 @@ input {
 }
 
 div.highscore_div {
+    background: transparent;
     list-style-position: inside;
     height: 200px;
     width: 600px;
@@ -75,10 +86,24 @@ div.highscore_div {
 p {
     margin-bottom: 50px;
     font-size: 30px;
+    background: transparent;
 }
 
-ul.explanation_list{
+input{
+    background: transparent;
+    border: white 1px solid;
+}
+
+ul.explanation_list {
+    background: transparent;
     width: 600px;
     margin-bottom: 50px;
 }
 
+ul.explanation_list > li {
+    background: transparent;
+}
+
+ol {
+    background: transparent;
+}
